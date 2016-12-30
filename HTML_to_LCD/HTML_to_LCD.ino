@@ -1,6 +1,6 @@
 /* ***********************************************************************************************
- * HTML to LCD Server v1.2
- * Everett Robinson
+ * HTML to LCD Server v1.3
+ * Everett Robinson, Decem
  *
  * This project uses the Arduino ethernet shield and a sparkfun 16x2 character LCD to produce a
  * webpage which shows what the LCD is currently displaying, and where a user can change what's
@@ -9,11 +9,6 @@
  * (http://www.arduino.cc/playground/Main/RoboSapienServer).
  * The result of this parsing is the extraction and updating of the LCD with the strings the user
  * entered, which are also converted back to something readable at the same time.
- *
- * Bug fixes:
- * A problem in which any zero's were removed from the input has been fixed
- * Instances of Client and Server have been replaced with EthernetClient and EthernetServer
- * Changes to how URLstring was managed in the htmlToHuman(); function to make it compile.
  *
  *************************************************************************************************
  * LCD pin to Arduino Digital pin Connection Map (for Sparkfun 16x2 LCD)
@@ -79,43 +74,45 @@ String line2 = "                ";
 
 
 // Strings stored in flash mem for the Html Header
-prog_char Header_0[] PROGMEM = "HTTP/1.1 200 OK";            //
-prog_char Header_1[] PROGMEM = "Content-Type: text/html";    //
-prog_char Header_2[] PROGMEM = "";                           //
-prog_char Header_3[] PROGMEM = "<HTML>\n<HEAD>";             // The header lines
-prog_char Header_4[] PROGMEM = "<TITLE>HTML to LCD</TITLE>"; //
-prog_char Header_5[] PROGMEM = "</HEAD><BODY>";              //
+const char Header_0[] PROGMEM = "HTTP/1.1 200 OK";            //
+const char Header_1[] PROGMEM = "Content-Type: text/html";    //
+const char Header_2[] PROGMEM = "";                           //
+const char Header_3[] PROGMEM = "<HTML>\n<HEAD>";             // The header lines
+const char Header_4[] PROGMEM = "<TITLE>HTML to LCD</TITLE>"; //
+const char Header_5[] PROGMEM = "</HEAD><BODY>";              //
 
 // A table of pointers to the flash memory strings for the header
-PROGMEM const char *Header_table[] =
+const char* const Header_table[] PROGMEM=
 {
   Header_0,
   Header_1,
   Header_2,
   Header_3,
   Header_4,
-  Header_5};
+  Header_5
+};
 
 
 // Strings stored in flash mem for the body of the webpage, including the input forms
 // Only the longer lines, not involving variables are stored here
 
-prog_char Body_0[] PROGMEM = "<H2>Currently Displayed:</H2>";
-prog_char Body_1[] PROGMEM = "<H2>Change it to something else!</H2>";
-prog_char Body_2[] PROGMEM = "<form action=\"/?\" method=get>";
-prog_char Body_3[] PROGMEM = "<b>Line 1: </b><input type=\"text\" name=\"L1\" maxlength=\"16\" size=\"16\" /><br />";
-prog_char Body_4[] PROGMEM = "<b>Line 2: </b><input type=\"text\" name=\"L2\" maxlength=\"16\" size=\"16\" /><br />";
-prog_char Body_5[] PROGMEM = "<input type=\"submit\" value=\"Submit\" /></form>";
+const char Body_0[] PROGMEM = "<H2>Currently Displayed:</H2>";
+const char Body_1[] PROGMEM = "<H2>Change it to something else!</H2>";
+const char Body_2[] PROGMEM = "<form action=\"/?\" method=get>";
+const char Body_3[] PROGMEM = "<b>Line 1: </b><input type=\"text\" name=\"L1\" maxlength=\"16\" size=\"16\" /><br />";
+const char Body_4[] PROGMEM = "<b>Line 2: </b><input type=\"text\" name=\"L2\" maxlength=\"16\" size=\"16\" /><br />";
+const char Body_5[] PROGMEM = "<input type=\"submit\" value=\"Submit\" /></form>";
 
 // A table of pointers to the flash memory strings for the body
-PROGMEM const char *Body_table[] =
+const char* const Body_table[] PROGMEM =
 {
   Body_0,
   Body_1,
   Body_2,
   Body_3,
   Body_4,
-  Body_5};
+  Body_5
+};
 
 
 
