@@ -1,6 +1,6 @@
 /* ***********************************************************************************************
  * HTML to LCD Server v1.3
- * Everett Robinson, Decem
+ * Everett Robinson, December 2016
  *
  * This project uses the Arduino ethernet shield and a sparkfun 16x2 character LCD to produce a
  * webpage which shows what the LCD is currently displaying, and where a user can change what's
